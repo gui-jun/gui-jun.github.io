@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="配置java执行 vi &#x2F;etc&#x2F;profile    重新加载系统配置文件： source &#x2F;etc&#x2F;profile export JAVA_HOME&#x3D;&#x2F;usr&#x2F;java&#x2F;jdk1.7.0_71 export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib&#x2F;dt.jar:$JAVA_HOME&#x2F;lib&#x2F;tools.jar export PATH&#x3D;$JAVA_HOME&#x2F;bin:$PATH ex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linuxSoft">
+<meta property="og:url" content="http://yoursite.com/2020/08/11/linuxSoft/index.html">
+<meta property="og:site_name" content="Mr">
+<meta property="og:description" content="配置java执行 vi &#x2F;etc&#x2F;profile    重新加载系统配置文件： source &#x2F;etc&#x2F;profile export JAVA_HOME&#x3D;&#x2F;usr&#x2F;java&#x2F;jdk1.7.0_71 export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib&#x2F;dt.jar:$JAVA_HOME&#x2F;lib&#x2F;tools.jar export PATH&#x3D;$JAVA_HOME&#x2F;bin:$PATH ex">
+<meta property="article:published_time" content="2020-08-11T06:23:28.497Z">
+<meta property="article:modified_time" content="2020-07-31T12:01:43.536Z">
+<meta property="article:author" content="Jun-Gui">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/11/linuxSoft/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>linuxSoft | Mr</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fd5e70c0f8bc67c5a280145fd40d6226";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mr</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>معلومات</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>التقويم</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/11/linuxSoft/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jun-Gui">
+      <meta itemprop="description" content="总有疾风起">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linuxSoft
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2020-08-11 14:23:28" itemprop="dateCreated datePublished" datetime="2020-08-11T14:23:28+08:00">2020-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2020-07-31 20:01:43" itemprop="dateModified" datetime="2020-07-31T20:01:43+08:00">2020-07-31</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="عدد الحروف في المقال">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">عدد الحروف في المقال: </span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="زمن القراءة">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">زمن القراءة &asymp;</span>
+              <span>4 دقائق.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="配置java"><a href="#配置java" class="headerlink" title="配置java"></a>配置java</h3><p>执行 vi /etc/profile   </p>
+<p>重新加载系统配置文件： source /etc/profile</p>
+<p>export JAVA_HOME=/usr/java/jdk1.7.0_71</p>
+<p>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</p>
+<p>export PATH=$JAVA_HOME/bin:$PATH</p>
+<p>export ZK_HOME=/usr/zookeeper/zookeeper3.5<br>export PATH=$PATH:$ZK_HOME/bin</p>
+<p>tar -zxvf zookeeper-3.4.10.tar.gz -C apps/</p>
+<p> 复制文件 cp  zoo_sample.cfg  zoo.cfg</p>
+<p>// 刪除已有的jdk</p>
+<p> rpm -e –nodeps java-1.8.0-openjdk-headless-1.8.0.222.b03-1.el7.x86_64<br> rpm -e –nodeps java-1.8.0-openjdk-1.8.0.222.b03-1.el7.x86_64</p>
+<p>====================================================</p>
+<h3 id="zookeeper"><a href="#zookeeper" class="headerlink" title="zookeeper"></a>zookeeper</h3><p>dataDir=/usr/zookeeper/apache-zookeeper3.5/data</p>
+<p>dataLogDir=/usr/zookeeper/apache-zookeeper3.5/logs</p>
+<p>./zkServer.sh start</p>
+<p> server.1=192.168.32.136:2888:3888   </p>
+<p>server.2=192.168.32.137:2888:3888 </p>
+<p>server.3=192.168.32.138:2888:3888 </p>
+<p> arp -a </p>
+<p> echo 1 &gt; myid</p>
+<p>====================================================</p>
+<h3 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a><strong>kafka</strong></h3><p>broker.id=0</p>
+<p>log.dirs=/usr/kafka/logs</p>
+<p>zookeeper.connect=192.168.32.136:2181,192.168.32.137:2181,192.168.32.138:2181</p>
+<p> delete.topic.enble=true </p>
+<p>export KAFKA_HOME=/usr/kafka/kafka2.4<br>export PATH=$KAFKA_HOME/bin:$PATH</p>
+<p> ./bin/kafka-server-start.sh config/server.properties &amp;，启动kafka </p>
+<p>创建 topic</p>
+<p>kafka-topics.sh –create –zookeeper 192.168.32.136:2181, 192.168.32.137:2181, 192.168.32.138:2181 –replication-factor 3 –partitions 3 –topic test </p>
+<p>列出 topic</p>
+<p> kafka-topics.sh –list –zookeeper 192.168.32.136:2181</p>
+<p>发送消息</p>
+<p> kafka-console-producer.sh –broker-list 192.168.32.136:2181, 192.168.32.137:2181, 192.168.32.138:2181 –topic mytopic_01</p>
+<p>接收发送的消息</p>
+<p> kafka-console-consumer.sh  192.168.32.136:2181, 192.168.32.137:2181, 192.168.32.138:2181 –from-beginning –topic  mytopic_01</p>
+<p>====================================================</p>
+<h3 id="rabbitmq"><a href="#rabbitmq" class="headerlink" title="rabbitmq"></a>rabbitmq</h3><p>1、安装依赖</p>
+<p>　yum -y install gcc glibc-devel make ncurses-devel openssl-devel xmlto perl wget gtk2-devel binutils-devel</p>
+<p> 2、下载 erlang </p>
+<p>wget <a href="http://erlang.org/download/otp_src_22.0.tar.gz" target="_blank" rel="noopener">http://erlang.org/download/otp_src_22.0.tar.gz</a></p>
+<p>3、解压</p>
+<p>4、创建即将安装的目录：mkdir ../erlang </p>
+<p> 5、配置安装路径：./configure –prefix=/usr/local/erlang (需要在otp_src_22.0目录下) </p>
+<p>6、安装 make install </p>
+<p>7、环境变量  vi /etc/profile ；</p>
+<p>export ERLANG_HOME=/usr/erlang/bin</p>
+<p>export PATH=${ERLANG_HOME}/bin:${PATH}   </p>
+<p>source /etc/profile </p>
+<p>8、 安装rabbitmq  </p>
+<p>9、tar.xz 格式所以需要用到xz，没有需要先安装 yum install -y xz</p>
+<p> /usr/bin/xz -d rabbitmq-server-generic-unix-3.7.15.tar.xz </p>
+<p>10、 vi /etc/profile ；</p>
+<p>export RABBITMQ_HOME=/usr/rabbitmq/rabbitmq3/sbin</p>
+<p>export PATH=${RABBITMQ_HOME}/sbin:${PATH} </p>
+<p> source /etc/profile</p>
+<p>11、创建配置文件目录</p>
+<p> 可以通过 find / -name rabbitmq-defaults 查找rabbitmq-defaults文件，查看config文件的存储路径 </p>
+<p>　　mkdir /etc/rabbitmq</p>
+<p>12、进入 /usr/local/rabbitmq/sbin 启动rabbitmq： ./rabbitmq-server </p>
+<p>13、开启UI管理界面：rabbitmq-plugins enable rabbitmq_management    默认端口：15672 </p>
+<p>14、 用户管理：</p>
+<p>查看所有用户：rabbitmqctl list_users</p>
+<p>添加新用户：rabbitmqctl add_user ych 123456</p>
+<p>配置权限：rabbitmqctl set_permissions -p “/“ ych “.*” “.*” “.*”</p>
+<p>查看用户权限：rabbitmqctl list_user_permissions ych</p>
+<p>设置tag：rabbitmqctl set_user_tags ych administrator</p>
+<p>rabbitmq-server -detached  #后台启动</p>
+<p>netstat -ntulp 查看进程信息</p>
+<p>========================================================</p>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p> 1、检查是否自带mariadb数据库</p>
+<p>rpm -qa|grep mariadb</p>
+<p>2、删除mariadb数据库</p>
+<p>rpm -e –nodeps mariadb-libs-5.5.56-2.el7.x86_64</p>
+<p> 创建data目录，作为数据库存储位置 </p>
+<p>groupadd mysql //创建mysql 用户组</p>
+<p>useradd -g mysql mysql //创建一个用户名为mysql的用户并加入mysql用户组</p>
+<p>chown –R mysql . //把当前目录下的文件及目录的属性改为mysql用户</p>
+<p>chgrp –R mysql . //把当前目录下的文件所属的组件改为mysql组</p>
+<p>my.cnf配置文件内容：</p>
+<p>[mysqld]<br>bind-address=0.0.0.0<br>port=3306<br>user=mysql<br>basedir=/usr/mysql/mysql<br>datadir=/usr/mysql/mysql/data<br>socket=/tmp/mysql.sock<br>log-error=/usr/mysql/mysql/data/mysql.err<br>pid-file=/usr/mysql/mysql/data/mysql.pid<br>#character config<br>character_set_server=utf8mb4<br>symbolic-links=0<br>explicit_defaults_for_timestamp=true</p>
+<p>初始化mysql：</p>
+<p>./mysqld –defaults-file=/etc/my.cnf –basedir=/usr/mysql/mysql –datadir=/usr/mysql/mysql/data –user=mysql –initialize</p>
+<p> <strong>先将mysql.server放置到/etc/init.d/mysql中</strong> </p>
+<p>cp /usr/mysql/mysql/support-files/mysql.server /etc/init.d/mysql</p>
+<p>启动mysql服务</p>
+<p>service mysqld start</p>
+<p>12.通过初始密码登录mysql,并修改密码</p>
+<p>./mysqladmin -uroot -p password</p>
+<p>添加远程连接</p>
+<p>use mysql                                            #访问mysql库<br>update user set host = ‘%’ where user = ‘root’;      #使root能再任何host访问<br>FLUSH PRIVILEGES;                                    #刷新</p>
+<p>===========================================================</p>
+<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><p>1、下载安装目录  <a href="http://nginx.org/download/" target="_blank" rel="noopener">http://nginx.org/download/</a> </p>
+<p>2、进入解压目录 安装到指定位置 ./configure –prefix=/usr/local/nginx</p>
+<p>3、make install （make install是把这些编译出来的可执行文件和库文件复制到合适的地方）</p>
+<p>4、  参数 -c 指定了配置文件的路径，如果不加的话就是使用默认的配置文件  </p>
+<p>nginx -c  /usr/local/nginx/conf/nginx.conf</p>
+<p>5、查询nginx主进程号 ps -ef | grep nginx</p>
+<p>6、从容停止Nginx： kill -QUIT 主进程号；</p>
+<p>​      快速停止Nginx ：  kill -TERM 主进程号 ；</p>
+<p>​      强制停止Nginx ： pkill -9 nginx</p>
+<p>7、判断Nginx配置是否正确：nginx -t -c /usr/nginx/conf/nginx.conf  或者 /usr/nginx/sbin/nginx -t</p>
+<p>8、重启：/usr/nginx/sbin/nginx -s reload</p>
+<p>=============================================================</p>
+<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><p>1.安装gcc redis是c语言编写的</p>
+<p> yum install gcc-c++</p>
+<p> wget <a href="http://download.redis.io/releases/redis-5.0.4.tar.gz" target="_blank" rel="noopener">http://download.redis.io/releases/redis-5.0.4.tar.gz</a></p>
+<p>5、进入redis目录编译  make</p>
+<p>6、安装  make PREFIX=/usr/local/redis install</p>
+<p>7.拷贝redis.conf到安装目录 cp redis.conf /usr/local/redis.conf</p>
+<p>9.编辑redis.conf<br>  vi redis.conf</p>
+<p> 1.后台启动，daemonize yes</p>
+<p> 2.绑定端口，port 6379 默认是6379 需要安全组开放端口</p>
+<p> 3.绑定IP，bind 192.168.2.128 绑定哪个哪个可以访问 0.0.0.0 为全部ip可访问</p>
+<p> 4.指定数据存放路径，dir /usr/local/redis/log rdb存放的路径</p>
+<p> 5.指定持久化方式，appendonly yes</p>
+<p> 6.requirepass redis129 设置密码</p>
+<p>后端启动redis： ./bin/redis-server ./redis.conf</p>
+<p> ps aux | grep redis</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/11/linux/" rel="prev" title="linux">
+      <i class="fa fa-chevron-left"></i> linux
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/11/Mysql/" rel="next" title="Mysql">
+      Mysql <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置java"><span class="nav-number">1.</span> <span class="nav-text">配置java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zookeeper"><span class="nav-number">2.</span> <span class="nav-text">zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka"><span class="nav-number">3.</span> <span class="nav-text">kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rabbitmq"><span class="nav-number">4.</span> <span class="nav-text">rabbitmq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number">5.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">6.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number">7.</span> <span class="nav-text">redis</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jun-Gui</p>
+  <div class="site-description" itemprop="description">总有疾风起</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jun-Gui</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">مُجمل عدد الحروف: </span>
+    <span title="مُجمل عدد الحروف">109k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">مُجمل زمن القراءة &asymp;</span>
+    <span title="مُجمل زمن القراءة">1:39</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+   <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
