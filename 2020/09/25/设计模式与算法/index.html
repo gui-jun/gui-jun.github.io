@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1.算法：解题方案的准确而完整的描述，是一系列解决问题的清晰指令。①有穷性（Finiteness）：算法的有穷性是指算法必须能在执行有限个步骤之后终止； ②确切性(Definiteness)：算法的每一步骤必须有确切的定义； ③输入项(Input)：一个算法有0个或多个输入，以刻画运算对象的初始情况，所谓0个输 入是指算法本身定出了初始条件； ④输出项(Output)：一个算法有一个或多个输出，以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式与算法">
+<meta property="og:url" content="http://yoursite.com/2020/09/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8E%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Mr">
+<meta property="og:description" content="1.算法：解题方案的准确而完整的描述，是一系列解决问题的清晰指令。①有穷性（Finiteness）：算法的有穷性是指算法必须能在执行有限个步骤之后终止； ②确切性(Definiteness)：算法的每一步骤必须有确切的定义； ③输入项(Input)：一个算法有0个或多个输入，以刻画运算对象的初始情况，所谓0个输 入是指算法本身定出了初始条件； ④输出项(Output)：一个算法有一个或多个输出，以">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-25T15:24:07.088Z">
+<meta property="article:modified_time" content="2020-09-25T15:23:06.643Z">
+<meta property="article:author" content="Jun-Gui">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8E%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>设计模式与算法 | Mr</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fd5e70c0f8bc67c5a280145fd40d6226";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mr</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8E%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jun-Gui">
+      <meta itemprop="description" content="纵有疾风起，人生不言弃！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          设计模式与算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-25 23:24:07 / 修改时间：23:23:06" itemprop="dateCreated datePublished" datetime="2020-09-25T23:24:07+08:00">2020-09-25</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>1.算法：解题方案的准确而完整的描述，是一系列解决问题的清晰指令。<br>①有穷性（Finiteness）：算法的有穷性是指算法必须能在执行有限个步骤之后终止；</p>
+<p>②确切性(Definiteness)：算法的每一步骤必须有确切的定义；</p>
+<p>③输入项(Input)：一个算法有0个或多个输入，以刻画运算对象的初始情况，所谓0个输 入是指算法本身定出了初始条件；</p>
+<p>④输出项(Output)：一个算法有一个或多个输出，以反映对输入数据加工后的结果。没 有输出的算法是毫无意义的；</p>
+<p>⑤可行性(Effectiveness)：算法中执行的任何计算步骤都是可以被分解为基本的可执行 的操作步，即每个计算步都可以在有限时间内完成（也称之为有效性）；</p>
+<p>⑥高效性(High efficiency)：执行速度快，占用资源少；</p>
+<p>⑦健壮性(Robustness)：对数据响应正确。</p>
+<p>时间复杂度概念：一个算法中的语句执行次数称为语句频度或时间频度。记为T(n)。</p>
+<p>2.常用排序<br>①冒泡排序（Bubble Sort）：这个算法的名字由来是因为越大的元素会经由交换慢慢“浮”到数列的顶端，故名。<br>if data_set[i] &gt; data_set[i+1]: #每次将i与i+1比较，每次大循环将最大的放最后。小的逐渐放在最前<br>tmp = data_set[i]<br>data_set[i] = data_set[i+1]<br>data_set[i+1] = tmp</p>
+<p>②选择排序：在不断缩小的范围内选出最小值放在前面。<br>smallest_num_index = 0 #初始列表最小值,默认为第一个<br>for j in range(len(data_set)): #每次确定一个最小数，从头到尾确定<br>for i in range(j,len(data_set)): #从已确定数后一位开始<br>if data_set[i] &lt; data_set[smallest_num_index]: #当前值 比之前选出来的最小值 还要小,那就把它换成最小值<br>smallest_num_index = i #记录最小值的位置，然后互换给当前位置J，每次即可确定一个最小值<br>loop_count +=1</p>
+<p>③插入排序(Insertion Sort)：将列表分为2部分，左边为排序好的部分，右边为未排序的部分，循环整个列表，<br>每次将一个待排序的记录，按其关键字大小插入到前面已经排好序的子序列中的适当位置，直到全部记录插入完成为止。<br>一开始，已经排序的元素序列为空。</p>
+<p>for i in range(len(data_set)):<br>while i &gt; 0 and data_set[i] &lt; data_set[i-1]: #如果后一个小，就放前一位，类似于插牌<br>tmp = data_set[i]<br>data_set[i] = data_set[i-1]<br>data_set[i-1] = tmp<br>i -= 1</p>
+<p>④快速排序（quick sort）：首先任意选取一个数据（通常选用数组的第一个数）作为关键数据，然后将所有比它小的数都放到它前面，<br>所有比它大的数都放到它后面。</p>
+<p>不稳定：多个关键字相同的记录，经过排序后这些具有相同关键字的记录之间的相对次序可能变化</p>
+<p>⑤二叉树：边的上端节点称为父节点，下端称为子节点。</p>
+<p>⑥堆排序：堆分为最大堆和最小堆，其实就是完全二叉树。最大堆要求节点的元素都要大于其孩子，最小堆要求节点元素都小于其左右孩子，<br>两者对左右孩子的大小关系不做任何要求，<br>堆排序就是把堆顶的最大数取出再排序，再取出</p>
+<p>⑦希尔排序（shell sort）：插入排序的一种。也称缩小增量排序，是直接插入排序算法的一种更高效的改进版本。<br>不断缩小增量的间隔组成的元素进行大小排序，最后一次直接插入排序。<br>2018/03/15 周四</p>
+<p>常用设计模式学习<br>设计模式：代码设计经验的总结，创建型、结构型和行为型3大类</p>
+<p>①创建型模式：对对象的创建进行研究。<br>简单工厂模式（Simple Factory）；</p>
+<p>工厂方法模式（Factory Method）；</p>
+<p>抽象工厂模式（Abstract Factory）；</p>
+<p>创建者模式（Builder）；</p>
+<p>原型模式（Prototype）；</p>
+<p>单例模式（Singleton）。<br>②结构型模式：对象的组成以及对象之间的依赖关系。<br>外观模式（Facade）；</p>
+<p>适配器模式（Adapter）；</p>
+<p>代理模式（Proxy）；</p>
+<p>装饰模式（Decorator）；</p>
+<p>桥模式（Bridge）；</p>
+<p>组合模式（Composite）；</p>
+<p>享元模式（Flyweight）<br>③行为型模式：在对象的结构和对象的创建问题都解决了之后，就剩下对象的行为问题了。<br>模板方法模式（Template Method）；</p>
+<p>观察者模式（Observer）；</p>
+<p>状态模式（State）；</p>
+<p>策略模式（Strategy）；</p>
+<p>职责链模式（Chain of Responsibility）；</p>
+<p>命令模式（Command）；</p>
+<p>访问者模式（Visitor）；</p>
+<p>调停者模式（Mediator）；</p>
+<p>备忘录模式（Memento）；</p>
+<p>迭代器模式（Iterator）；</p>
+<p>解释器模式（Interpreter）。</p>
+<p>2.设计模式的六大原则<br>①开闭原则（Open Close Principle）</p>
+<p>对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的代码。<br>所以一句话概括就是：为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类。</p>
+<p>②里氏代换原则（Liskov Substitution Principle）</p>
+<p>面向对象设计的基本原则之一。即任何基类可以出现的地方，子类一定可以出现。<br>LSP是继承复用的基石，只有当衍生类可以替换掉基类，软件单位的功能不受到影响时，基类才能真正被复用，而衍生类也能够在基类的基础上增加新的行为。<br>里氏代换原则是对“开-闭”原则的补充。实现“开-闭”原则的关键步骤就是抽象化。<br>而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。</p>
+<p>3、依赖倒转原则（Dependence Inversion Principle）</p>
+<p>这个是开闭原则的基础，具体内容：是对接口编程，依赖于抽象而不依赖于具体。</p>
+<p>4、接口隔离原则（Interface Segregation Principle）</p>
+<p>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。还是一个降低类之间的耦合度的意思，<br>从这儿我们看出，其实设计模式就是一个软件的设计思想，从大型软件架构出发，为了升级和维护方便。<br>所以上文中多次出现：降低依赖，降低耦合。</p>
+<p>5、迪米特法则（最少知道原则）（Demeter Principle）</p>
+<p>一个实体应当尽量少的与其他实体之间发生相互作用，使得系统功能模块相对独立。</p>
+<p>6、合成复用原则（Composite Reuse Principle）</p>
+<p>原则是尽量使用合成/聚合的方式，而不是使用继承。</p>
+<p>2018/03/16 周五</p>
+<p>设计三大类模式<br>2018/03/17 周六</p>
+<p>一. 创建型模式<br>1.工厂模式<br>意图：定义一个用于创建对象的接口，让子类决定实例化哪一个类。<br>①简单工厂模式：一个接口类负责决定创建哪个ShapeFactory的子类，即一个工厂。<br>总结：创建好多个产品的类后，写一个接口类对用哪个产品的类进行逻辑判断。</p>
+<p>②工厂方法模式：对每一个产品都有相应的工厂，客户端判断使用哪个接口（工厂）。<br>把简单工厂抽象为一个Factory类（可以是抽象类和接口），制定了一些规范，具体的生产由其子类工厂完成。<br>总结：写一个接口类，然后再写继承的子类，子类里的方法对应不同的产品类</p>
+<p>③抽象工厂模式：工厂方法模式针对的是一个产品等级结构；而抽象工厂模式则需要面对多个产品等级结构。<br>两个重要的概念：产品族和产品等级。<br>特点：使用同一个工厂等级结构来对付这些相同或者极为相似的产品等级结构。即一个工厂创建一族产品。<br>功能：为一系列相关对象或相互依赖的对象创建一个接口。切换产品族的时候，切换工厂即可。<br>客户端使用抽象工厂来创建需要的对象，而根本就不知道具体的实现是谁，客户端只是面向产品的接口编程而已。<br>总结：同一等级结构的产品有一个总类，对应不同族写不同的子类继承。写好多个等级结构后，再写一个总工厂类，<br>不同族继承不同的子工厂类，子工厂类里创建该族的一族产品。<br>最后写一个抽象工厂类，执行创建的动作。输入不同族产品即可创建不同族。</p>
+<p>2.建造者模式<br>意图：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。<br>基本思想：某类产品的构建由很多复杂组件组成；（类比一族产品）<br>这些组件中的某些细节不同，构建出的产品表象会略有不同；（类比不同族的工厂）<br>通过一个指挥者按照产品的创建步骤来一步步执行产品的创建；（类比工厂的创建过程）<br>当需要创建不同的产品时，只需要派生一个具体的建造者，重写相应的组件构建方法即可。（切换工厂）<br>总结：写一个基类，子类继承时细节不同，再写一个指挥者的类，执行创建。</p>
+<p>3.单例模式<br>意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。<br>总结：只有唯一的一个实例，后者会覆盖前面的。通过cls._instance绑定，唯一化实例</p>
+<pre><code>二.结构型模式</code></pre><p>1.适配器模式：<br>意图：将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。<br>应用场景：希望复用一些现存的类，但是接口又与复用环境要求不一致。<br>总结：新写一个类，类的方法指向现存的类的方法，即可转换。</p>
+<p>2.桥接模式：<br>概述：某些类型由于自身的逻辑，它具有两个或多个维度的变化，<br>意图：将抽象部分与实现部分分离，使它们都可以独立的变化。<br>效果及实现要点：<br>①Bridge模式使用“对象间的组合关系”解耦了抽象和实现之间固有的绑定关系，使得抽象和实现可以沿着各自的维度来变化。<br>②所谓抽象和实现沿着各自维度的变化，即“子类化”它们，得到各个子类之后，便可以任意它们，从而获得不同路上的不同汽车。<br>③Bridge模式有时候类似于多继承方案，但是多继承方案往往违背了类的单一职责原则（即一个类只有一个变化的原因），复用性比较差。Bridge模式是比多继承方案更好的解决方法。<br>④Bridge模式的应用一般在“两个非常强的变化维度”。注意的是，有时候即使有两个变化的维度，但是某个方向的变化维度并不剧烈——换言之两个变化不会导致纵横交错的结果，并不一定要使用Bridge模式。<br>总结：自由组配不同对象与不同实现，每种组合都有可能实现。这点与创建型模式——抽象工厂不同，抽象工厂只能创建一族的产品。</p>
+<p>3.组合模式<br>意图：将对象组合成树形结构以表示“部分-整体”的层次结构。用户对单个对象和组合对象的使用具有一致性。<br>用途：比如总店和分店，在总店购买时，积分也一样累加在分店卡上。<br>总结：写总店的对象的类时，写一个储存列表的方法，在实例时把分店加到里面，在写刷卡方法时，循环列表取出刷卡。<br>总店刷卡时，即可累加积分到分店上。从而单个对象（总店）和组合对象（总店和分店）使用（刷卡积分）一致。</p>
+<p>4.外观模式<br>意图：定义了一个高层接口,为子系统中的一组接口提供一个一致的界面，这个接口使得这一子系统更加容易使用。<br>概述：Facade 可以提供一个简单的缺省视图（用于接口），需要定制（改写继承）则越过facade层。<br>不同层之间建立外观模式，定义各自的facade接口，作为子系统中每层的入口点，它们仅通过facade进行通讯。<br>总结：为多层次的子类的不同层各写一个方法，归在一个总类下。</p>
+<p>5.享元模式<br>意图：运用共享技术有效地支持大量细粒度的对象。<br>概述：<br>①抽象享元角色（Flyweight）：<br>此角色是所有的具体享元类的超类，为这些类规定出需要实现的公共接口或抽象类。<br>那些需要外部状态(External State)的操作可以通过方法的参数传入。<br>抽象享元的接口使得享元变得可能，但是并不强制子类实行共享，因此并非所有的享元对象都是可以共享的。</p>
+<p>②具体享元(ConcreteFlyweight)角色：<br>实现抽象享元角色所规定的接口。如果有内部状态的话，必须负责为内部状态提供存储空间。<br>享元对象的内部状态必须与对象所处的周围环境无关，从而使得享元对象可以在系统内共享。<br>有时候具体享元角色又叫做单纯具体享元角色，因为复合享元角色是由单纯具体享元角色通过复合而成的。</p>
+<p>③复合享元(UnsharableFlyweight)角色：<br>复合享元角色所代表的对象是不可以共享的，但是一个复合享元对象可以分解成为多个本身是单纯享元对象的组合。<br>复合享元角色又称做不可共享的享元对象。这个角色一般很少使用。</p>
+<p>④享元工厂(FlyweightFactoiy)角色：<br>本角色负责创建和管理享元角色。本角色必须保证享元对象可以被系统适当地共享。<br>当一个客户端对象请求一个享元对象的时候，享元工厂角色需要检查系统中是否已经有一个符合要求的享元对象，<br>如果已经有了，享元工厂角色就应当提供这个已有的享元对象；如果系统中没有一个适当的享元对象的话，<br>享元工厂角色就应当创建一个新的合适的享元对象。</p>
+<p>⑤客户端(Client)角色：<br>本角色还需要自行存储所有享元对象的外部状态。</p>
+<p>⑥内部状态与外部状态：<br>在享元对象内部并且不会随着环境改变而改变的共享部分，可以称之为享元对象的内部状态，<br>反之随着环境改变而改变的，不可共享的状态称之为外部状态。<br>总结：写一个抽象基类（抽象享元），再继承子类（具体享元），实例化子类时（享元工厂）处理一下（删除相同实例的外部状态）。<br>那么可以用相对较少的共享对象取代很多组对象。</p>
+<p>6.代理模式<br>意图：为其他对象提供一种代理以控制对这个对象的访问。<br>主要解决：在直接访问对象时带来的问题。如买火车票，路远不去火车站买，去代售点买即可。<br>总结：写一个代理类，其方法指向被代理的类的方法。<br>缺点：增加了一层代理，请求处理时可能会速度变慢。<br>使用场景：<br>①远程代理。<br>②虚拟代理。<br>③Copy-on-Write 代理。<br>④保护（Protect or Access）代理。<br>⑤Cache代理。<br>⑥防火墙（Firewall）代理。<br>⑦同步化（Synchronization）代理。<br>⑧智能引用（Smart Reference）代理。</p>
+<pre><code>3三. 行为型模式</code></pre><p>1.模板方法模式<br>概述：一个抽象类公开定义了执行它的方法的方式/模板。它的子类可以按需要重写方法实现。<br>意图：定义一个操作中的算法的骨架，而将一些步骤延迟到子类中（重写）。行为（次数，数量）由父类控制，子类实现。<br>何时使用：一些方法通用，却在每一个子类都重新写了这一方法。<br>总结：在父类中写好全部方法（次序、数量），子类继承时重写部分方法，通过覆盖某些步骤，<br>使得相同的算法框架可以有不同的执行结果。</p>
+<p>2.责任链模式<br>意图：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。<br>将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。<br>总结：写一个基类，基类中要有从一个对象转下一个对象的方法，def successor(self,successor):<br>self._successor = successor<br>该方法的功能就是把另一个对象通过successor（）传递进来（进这个对象类中）。<br>在需要传下去时，写else self._successor.handle(request)即可。<br>最后一个对象不需要传递。<br>实例化时要把链子通过successor串起来。</p>
+<p>3.观察者模式 又名发布-订阅（Publish/Subscribe）模式<br>意图：定义对象间的一种一对多的依赖关系,当一个对象的状态发生改变时, 所有依赖于它的对象都得到通知并被自动更新。<br>总结：写一个基类，包含基本的添加、解除、通知等需要的方法，其中通知方法遍历使用被观察者类的被通知方法；<br>然后写一个继承的观察者类，里面包括传入信息，执行通知方法的方法；<br>再写几个被观察者类，有被通知方法；<br>最后实例时，添加被观察者到观察者的列表中，输入msg即可触发通知方法。</p>
+<p>4.策略模式<br>意图：定义一系列的算法,把它们一个个封装起来, 并且使它们可相互替换（即可随时更换）。<br>如何解决：将这些算法封装成一个一个的类，任意地替换。<br>关键代码：实现同一个接口。<br>总结：原本要更换算法的话，需要重新实例，要想同一个实例，需要在类里面定义一个重新指向算法的方法。<br>先写好几个算法，写接口时，除了有执行算法的方法，还需有重新指向另一个算法的方法，<br>更换时输入算法类的名字即可更换。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/25/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" rel="prev" title="存储过程">
+      <i class="fa fa-chevron-left"></i> 存储过程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jun-Gui</p>
+  <div class="site-description" itemprop="description">纵有疾风起，人生不言弃！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jun-Gui</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">113k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:43</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+   <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
